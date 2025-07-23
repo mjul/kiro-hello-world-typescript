@@ -1,0 +1,56 @@
+{
+  "name": "kiro-hello-world-typescript",
+  "version": "1.0.0",
+  "description": "A secure Single Sign-On (SSO) web application built with Node and TypeScript, supporting authentication via Microsoft 365 and GitHub OAuth2 providers.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon --exec \"npm run build && npm start\" --watch src --ext ts",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjul/kiro-hello-world-typescript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/mjul/kiro-hello-world-typescript/issues"
+  },
+  "homepage": "https://github.com/mjul/kiro-hello-world-typescript#readme",
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "connect-sqlite3": "^0.9.16",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0",
+    "express-session": "^1.18.2",
+    "helmet": "^8.1.0",
+    "passport": "^0.7.0",
+    "passport-github2": "^0.1.12",
+    "passport-microsoft": "^2.1.0",
+    "typescript": "^5.8.3",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/express": "^5.0.3",
+    "@types/express-session": "^1.18.2",
+    "@types/helmet": "^0.0.48",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.14",
+    "@types/passport": "^1.0.17",
+    "@types/passport-github2": "^1.2.9",
+    "@types/passport-microsoft": "^2.1.0",
+    "@types/supertest": "^6.0.3",
+    "@types/uuid": "^10.0.0",
+    "jest": "^30.0.4",
+    "nodemon": "^3.1.10",
+    "supertest": "^7.1.3",
+    "ts-jest": "^29.4.0"
+  }
+}

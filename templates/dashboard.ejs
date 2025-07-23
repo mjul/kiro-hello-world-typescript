@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SSO Web App</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-card">
+            <div class="user-info">
+                <h1>Hello <%= user.username %>!</h1>
+                <p class="user-details">
+                    <span class="user-email"><%= user.email %></span>
+                    <span class="user-provider">Signed in via <%= user.provider %></span>
+                </p>
+            </div>
+            
+            <div class="dashboard-actions">
+                <form action="/logout" method="POST" class="logout-form">
+                    <button type="submit" class="btn btn-logout">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.59L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                        </svg>
+                        Logout
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

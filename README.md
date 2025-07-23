@@ -1,30 +1,24 @@
 # SSO Web App
 
-A secure Single Sign-On (SSO) web application built with Node and TypeScript, supporting authentication via Microsoft 365 and GitHub OAuth2 providers.
-
-## Kiro Review
-
-
-See also:
-- The [Rust version](https://github.com/mjul/kiro-hello-world-rust).
-- The [Go version](https://github.com/mjul/kiro-hello-world-go).
+A secure Single Sign-On (SSO) web application built with Node.js and TypeScript, supporting authentication via Microsoft 365 and GitHub OAuth2 providers.
 
 ## Features
 
 - 🔐 **Secure OAuth2 Authentication** with Microsoft 365 and GitHub
-- 🎨 **Modern Web Interface** with responsive design and Askama templates
+- 🎨 **Modern Web Interface** with responsive design and EJS templates
 - 🛡️ **Session Management** with secure HTTP-only cookies
 - 🗄️ **SQLite Database** with automatic migrations
 - 🔒 **CSRF Protection** for OAuth2 flows
 - 📱 **Mobile-Friendly** responsive design
-- ⚡ **Fast & Lightweight** built with Rust and Axum
-- 🧪 **Comprehensive Testing** with unit and integration tests
+- ⚡ **Fast & Lightweight** built with Node.js and Express
+- 🧪 **Comprehensive Testing** with Jest and TypeScript
 
 ## Quick Start
 
 ### Prerequisites
 
-- TODO 
+- Node.js (v18 or higher)
+- npm or yarn
 - Git
 
 ### 1. Clone the Repository
@@ -77,24 +71,28 @@ Run the initialization script to set up your environment:
 ./scripts/init_db.sh
 ```
 
-### 4. Run the Application
+### 4. Install Dependencies
+
+```bash
+npm install
+```
+
+### 5. Run the Application
 
 **Development mode:**
-TODO
 ```bash
+npm run dev
 ```
 
 **With debug logging:**
-TODO
-```powershell
-# Windows PowerShell
-
-# Linux/macOS
+```bash
+DEBUG=* npm run dev
 ```
 
 **Production build:**
-TODO
 ```bash
+npm run build
+npm start
 ```
 
 The application will be available at `http://localhost:3000`
@@ -158,41 +156,47 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 ### Running Tests
 
-TODO
 ```bash
 # Run all tests
+npm test
 
-# Run specific test suites
+# Run tests in watch mode
+npm run test:watch
 
-# Run with output
+# Run tests with coverage
+npm run test:coverage
 ```
 
 ### Database Management
 
 The application automatically creates and migrates the SQLite database on startup. To reset the database:
 
-TODO
 ```bash
+rm data/app.db
+npm run dev
 ```
 
 ### Logging
 
-Set the TODO environment variable to control logging levels:
+Set the `DEBUG` environment variable to control logging levels:
 
 ```bash
 # Debug level (default in development)
+DEBUG=* npm run dev
 
 # Info level for production
+NODE_ENV=production npm start
 
 # Specific module logging
+DEBUG=app:* npm run dev
 ```
 
 ## Production Deployment
 
 ### Building for Production
 
-TODO
 ```bash
+npm run build
 ```
 
 ### Production Configuration
@@ -200,29 +204,26 @@ TODO
 1. **Use HTTPS**: Update `BASE_URL` to use `https://`
 2. **Secure Session Secret**: Use a strong, randomly generated secret
 3. **Database**: Consider using a persistent volume for SQLite file
-4. **Logging**: Set `RUST_LOG=info` or `RUST_LOG=warn`
+4. **Logging**: Set `NODE_ENV=production` and configure appropriate log levels
 5. **OAuth2 Redirects**: Update OAuth2 app configurations with production URLs
 
 ### Docker Deployment
 
 Create a `Dockerfile`:
 
-TODO
-
 ```dockerfile
-FROM ..........
+FROM node:18-alpine AS builder
 WORKDIR /app
-COPY . .
-RUN cargo build --release
+COPY package*.json ./
+RUN npm ci --only=production
 
-FROM debian:bookworm-slim
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+FROM node:18-alpine
 WORKDIR /app
-COPY --from=builder /app/target/release/sso-web-app .
-COPY --from=builder /app/templates ./templates
-COPY --from=builder /app/migrations ./migrations
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
 EXPOSE 3000
-CMD ["./sso-web-app"]
+CMD ["npm", "start"]
 ```
 
 Build and run:
@@ -268,8 +269,8 @@ server {
 
 - **OAuth2 CSRF Protection**: State parameter validation
 - **Secure Session Cookies**: HttpOnly, SameSite=Lax
-- **SQL Injection Prevention**: Parameterized queries with SQLx
-- **XSS Prevention**: Template escaping with Askama
+- **SQL Injection Prevention**: Parameterized queries with better-sqlite3
+- **XSS Prevention**: Template escaping with EJS
 - **Session Management**: Secure session storage and cleanup
 - **Error Handling**: No sensitive information leakage
 
@@ -298,7 +299,7 @@ server {
 Run with debug logging to troubleshoot issues:
 
 ```bash
-RUST_LOG=debug cargo run
+DEBUG=* npm run dev
 ```
 
 ## Contributing
@@ -306,7 +307,7 @@ RUST_LOG=debug cargo run
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature-name`
 3. Make your changes and add tests
-4. Run tests: `cargo test`
+4. Run tests: `npm test`
 5. Commit your changes: `git commit -am 'Add feature'`
 6. Push to the branch: `git push origin feature-name`
 7. Submit a pull request
@@ -319,15 +320,28 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Technology Stack
 
-- **Backend**: Rust with (TBD) web framework
-- **Database**: SQLite with (TBD) for async operations
-- **Templates**: (TBD) 
+- **Backend**: Node.js with Express and TypeScript
+- **Database**: SQLite with better-sqlite3
+- **Templates**: EJS templating engine
 - **Authentication**: OAuth2 with Microsoft Graph API and GitHub API
-- **Session Management**: (TBD) with memory store
-- **Testing**: (TBD)
+- **Session Management**: Express sessions with secure cookies
+- **Testing**: Jest with TypeScript support
 
 ### Project Structure
 
-TODO
 ```
+src/
+├── app.ts              # Express app configuration
+├── index.ts            # Application entry point
+├── config/             # Configuration files
+├── database/           # Database setup and migrations
+├── models/             # Data models and interfaces
+├── routes/             # Express route handlers
+├── services/           # Business logic services
+└── types/              # TypeScript type definitions
+
+tests/                  # Test files mirroring src structure
+templates/              # EJS templates
+public/                 # Static assets
+data/                   # SQLite database files
 ```
