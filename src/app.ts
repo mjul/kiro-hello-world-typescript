@@ -49,7 +49,7 @@ export function createApp(): Application {
   // Session middleware with SQLite store
   app.use(session({
     store: new SQLiteStore({
-      db: config.database.path,
+      db: 'sessions.db',
       table: 'sessions',
       dir: path.dirname(config.database.path)
     }),

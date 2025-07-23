@@ -94,7 +94,7 @@ export class AuthServiceImpl implements AuthService {
       console.log(`Microsoft OAuth callback successful for user: ${user.username}`);
       
       return {
-        id: user.providerId,
+        id: user.id,
         username: user.username,
         email: user.email,
         provider: 'microsoft'
@@ -146,7 +146,7 @@ export class AuthServiceImpl implements AuthService {
       console.log(`GitHub OAuth callback successful for user: ${user.username}`);
       
       return {
-        id: user.providerId,
+        id: user.id,
         username: user.username,
         email: user.email,
         provider: 'github'

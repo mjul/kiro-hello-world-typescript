@@ -149,7 +149,7 @@ router.get('/auth/github', (req: Request, res: Response): void => {
 /**
  * Microsoft OAuth callback route handler
  */
-router.get('/auth/microsoft/callback', async (req: Request, res: Response): Promise<void> => {
+router.get('/auth/callback/microsoft', async (req: Request, res: Response): Promise<void> => {
   try {
     const { code, state, error } = req.query;
     
@@ -203,7 +203,7 @@ router.get('/auth/microsoft/callback', async (req: Request, res: Response): Prom
 /**
  * GitHub OAuth callback route handler
  */
-router.get('/auth/github/callback', async (req: Request, res: Response): Promise<void> => {
+router.get('/auth/callback/github', async (req: Request, res: Response): Promise<void> => {
   try {
     const { code, state, error } = req.query;
     

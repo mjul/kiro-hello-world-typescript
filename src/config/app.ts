@@ -48,14 +48,17 @@ export interface AppConfig {
  * Load and validate environment variables
  */
 export function loadConfig(): AppConfig {
-  // Load environment variables from .env file if in development
-  if (process.env.NODE_ENV !== 'production') {
-    try {
-      require('dotenv').config();
-    } catch (error) {
-      // dotenv is optional, continue without it
-      console.warn('dotenv not available, using environment variables directly');
+  // Load environment variables from .env file
+  // Always try to load .env file, but don't fail if it doesn't exist
+  try {
+    const dotenv = require('dotenv');
+    const result = dotenv.config();
+    if (result.error) {
+      console.warn('Error loading .env file:', result.error.message);
     }
+  } catch (error) {
+    // dotenv is optional, continue without it
+    console.warn('dotenv not available, using environment variables directly');
   }
 
   const nodeEnv = (process.env.NODE_ENV || 'development') as 'development' | 'production' | 'test';
@@ -102,13 +105,13 @@ export function loadConfig(): AppConfig {
     microsoft: {
       clientId: process.env.MICROSOFT_CLIENT_ID || '',
       clientSecret: process.env.MICROSOFT_CLIENT_SECRET || '',
-      redirectUri: `${baseUrl}/auth/microsoft/callback`,
+      redirectUri: `${baseUrl}/auth/callback/microsoft`,
       scope: ['openid', 'profile', 'email']
     },
     github: {
       clientId: process.env.GITHUB_CLIENT_ID || '',
       clientSecret: process.env.GITHUB_CLIENT_SECRET || '',
-      redirectUri: `${baseUrl}/auth/github/callback`,
+      redirectUri: `${baseUrl}/auth/callback/github`,
       scope: ['user:email']
     }
   };
