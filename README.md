@@ -2,6 +2,16 @@
 
 A secure Single Sign-On (SSO) web application built with Node.js and TypeScript, supporting authentication via Microsoft 365 and GitHub OAuth2 providers.
 
+
+## Kiro Review
+This was generated with AWS Kiro. TypeScript seems like a good target for Kiro code generation. The
+generation was fairly quick, the rework rate was low and the feedback loops quick.
+
+This is part of an experiment with multiple version generated from the same specification:
+ - [Rust version](https://github.com/mjul/kiro-hello-world-rust) 
+ - [Go version](https://github.com/mjul/kiro-hello-world-go)
+ - [TypeScript version](https://github.com/mjul/kiro-hello-world-typescript) 
+
 ## Features
 
 - 🔐 **Secure OAuth2 Authentication** with Microsoft 365 and GitHub
